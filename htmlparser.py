@@ -21,11 +21,12 @@ class SSLinkHTMLParser(HTMLParser):
     def handle_endtag(self, tag):
         if tag == 'tbody':
             self.__tbody = False
-        elif tag == 'tr':
+        elif tag == 'tr' and self.__tbody:
             self.__tr = False
             self.__td_index = 0
             self.servers.append(self.__cur)
-        elif tag == 'td':
+            self.__cur = {}
+        elif tag == 'td' and self.__tr:
             self.__td = False
             self.__td_index += 1
 
