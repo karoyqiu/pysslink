@@ -4,6 +4,9 @@ import select
 import socket
 
 
+__all__ = ['ping_one', 'ping']
+
+
 def chk(data):
     x = sum(a + b * 256 for a, b in zip(data[::2], data[1::2] + b'\x00')) & 0xFFFFFFFF
     x = (x >> 16) + (x & 0xFFFF)
@@ -11,7 +14,7 @@ def chk(data):
     return (~x & 0xFFFF).to_bytes(2, 'little')
 
 
-def ping(addr, timeout=1):
+def ping_one(addr, timeout = 3):
     with socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_ICMP) as conn:
         payload = random.randrange(0, 65536).to_bytes(2, 'big') + b'\x01\x00'
         packet  = b'\x08\x00' + b'\x00\x00' + payload
@@ -29,5 +32,15 @@ def ping(addr, timeout=1):
                 return time.time() - start
 
 
-if __name__ == '__main__':
-    print(ping('google.com'))
+def ping(addr, count = 4, timeout = 3):
+    total = 0
+
+    for i in range(count):
+        t = ping_one(addr, timeout)
+
+        if t == None:
+            total += timeout
+        else:
+            total += t
+
+    return total / count
