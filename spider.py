@@ -1,7 +1,8 @@
 import requests
+import settings
 from htmlparser import SSLinkHTMLParser
 
-__all__ = ['getServerList']
+__all__ = ['get_servers']
 
 def __fetchHtml(email, password):
     payload = {
@@ -18,6 +19,9 @@ def __parseHtml(html):
     parser.feed(html)
     return parser.servers
 
-def getServerList():
-    html = __fetchHtml('karoyqiu@qq.com', '66e2ad00f406bbb56411305279d9866f')
+def get_servers():
+    s = settings.Settings('Q', 'pysslink')
+    email = s.get('Account', 'email')
+    password = s.get('Account', 'password')
+    html = __fetchHtml(email, password)
     return __parseHtml(html)

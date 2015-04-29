@@ -1,8 +1,9 @@
-import spider
 import ping
+import settings
+import spider
 
 print('Fetching the server list...')
-servers = spider.getServerList()
+servers = spider.get_servers()
 print('Got', len(servers), 'servers.')
 
 print('Finding the fastest server...')
