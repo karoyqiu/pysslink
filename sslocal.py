@@ -14,10 +14,10 @@ class SSLocal():
 
     def __del__(self):
         if self.__sslocal:
-            #sself.__sslocal.terminate()
+            self.__sslocal.terminate()
 
             try:
-                self.__sslocal.wait(100)
+                self.__sslocal.wait(3)
             except subprocess.TimeoutExpired:
                 self.__sslocal.kill()
 

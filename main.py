@@ -1,7 +1,10 @@
+import meow
 import ping
 import settings
 import sslocal
 import spider
+import time
+import signal
 
 print('Fetching the server list...')
 servers = spider.get_servers()
@@ -23,3 +26,8 @@ for ss in servers:
 print('Fastest server:', fastest['name'], fastest['ip'], minTtl)
 ss = sslocal.SSLocal(fastest)
 ss.start()
+hp = meow.Meow(ss)
+hp.start()
+
+while True:
+    time.sleep(10)
