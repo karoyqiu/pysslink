@@ -1,5 +1,6 @@
 import ping
 import settings
+import sslocal
 import spider
 
 print('Fetching the server list...')
@@ -20,3 +21,5 @@ for ss in servers:
         fastest = ss
 
 print('Fastest server:', fastest['name'], fastest['ip'], minTtl)
+ss = sslocal.SSLocal(fastest)
+ss.start()

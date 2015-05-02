@@ -21,6 +21,9 @@ class Settings():
     def get(self, section, option, fallback = None):
         return self.__config.get(section, option, fallback = fallback)
 
+    def getint(self, section, option, fallback = None):
+        return self.__config.getint(section, option, fallback = fallback)
+
     #def set(self, section, option, value):
     #    if not self.__config.has_section(section):
     #        self.__config.add_section(section)

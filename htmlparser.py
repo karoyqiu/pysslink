@@ -37,7 +37,7 @@ class SSLinkHTMLParser(HTMLParser):
             elif self.__td_index == 1:
                 self.__cur['ip'] = data
             elif self.__td_index == 2:
-                self.__cur['port'] = data
+                self.__cur['port'] = int(data)
             elif self.__td_index == 3:
                 self.__cur['password'] = data
             elif self.__td_index == 4:
